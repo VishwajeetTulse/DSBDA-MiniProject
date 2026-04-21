@@ -1,0 +1,376 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\setstretch{1.2}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{14.5pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{Mini Project Report}
+\fancyfoot[C]{\thepage}
+
+\titleformat{\chapter}[display]
+{\bfseries\Huge}
+{Chapter \thechapter}
+{0.5ex}
+{\Large}
+
+\graphicspath{{figures/}{./}}
+\captionsetup[figure]{justification=centering,singlelinecheck=false}
+
+\newcommand{\screenshotslot}[2]{
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.92\textwidth,height=0.62\textheight,keepaspectratio]{#1}
+\caption{#2}
+\end{figure}
+}
+
+\begin{document}
+
+% ------------------------- TITLE PAGE -------------------------
+\begin{titlepage}
+\centering
+
+\vspace*{1cm}
+{\Large \textbf{A MINI PROJECT REPORT ON}}\\[0.6cm]
+{\Huge \textbf{RetailFlow Business Portal}}\\[0.6cm]
+{\Large \textbf{(Dynamic Web Application for Business Functionality)}}\\[1.2cm]
+
+{\large \textbf{SUBMITTED TO}}\\[0.3cm]
+{\Large \textbf{SAVITRIBAI PHULE PUNE UNIVERSITY, PUNE}}\\[1.2cm]
+
+{\large \textbf{SUBMITTED BY}}\\[0.4cm]
+\begin{tabular}{p{8cm}p{5cm}}
+\textbf{Vishwajeet Tulse} & \hspace{1.7cm}\textbf{Roll No: T5543}  \\
+\end{tabular}
+
+\vfill
+\includegraphics[width=6cm,height=4cm,keepaspectratio]{\detokenize{SinhgadLogo (1).jpg}}
+\vfill
+
+{\large \textbf{UNDER THE GUIDANCE OF}}\\[0.3cm]
+{\large Dr. S. P. Bendale}\\[1cm]
+
+{\large \textbf{DEPARTMENT OF COMPUTER ENGINEERING}}\\
+{\large \textbf{NBN SINHGAD TECHNICAL INSTITUTES CAMPUS}}\\
+{\large \textbf{NBN SINHGAD SCHOOL OF ENGINEERING}}\\
+{\large 10/1, Ambegaon (Bk), Pune - 411041}\\[0.8cm]
+
+{\large \textbf{Academic Year 2025--2026}}
+
+\end{titlepage}
+
+\pagenumbering{roman}
+
+% ------------------------- CERTIFICATE -------------------------
+\chapter*{}
+\addcontentsline{toc}{chapter}{CERTIFICATE}
+\vspace*{-1.5cm}
+\begin{center}
+{\Huge\bfseries CERTIFICATE\par}
+\vspace{1cm}
+\includegraphics[width=6cm,height=4cm,keepaspectratio]{\detokenize{SinhgadLogo (1).jpg}}
+\end{center}
+
+This is to certify that the project report entitled \textbf{RetailFlow Business Portal}
+submitted by
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r}
+\textbf{Vishwajeet Tulse} & \textbf{Roll No: T5543} \\
+\end{tabular*}
+
+is a bonafide work carried out under our supervision and guidance.
+This work is submitted in partial fulfillment of the requirements of
+Web Technology Laboratory of Savitribai Phule Pune University, Pune.
+
+\vspace{3cm}
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\raggedright
+Guide Signature\\
+\textbf{Dr. S. P. Bendale}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\raggedleft
+HOD Signature\\
+\textbf{Dr. S. P. Bendale}
+\end{minipage}
+
+\vspace{1.5cm}
+\textbf{Date:} \rule{3cm}{0.15mm} \hfill
+\textbf{Place:} Pune
+
+% ------------------------- ACKNOWLEDGEMENT -------------------------
+\chapter*{ACKNOWLEDGEMENT}
+\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT}
+
+It gives me great pleasure to present this project report on
+\textbf{Movie Recommendation Model using Scikit-learn}. I express sincere gratitude
+and thanks to my guide \textbf{Dr. S. P. Bendale} for constant guidance, motivation,
+and valuable suggestions throughout the mini project work.
+
+I am thankful to the Head of Department, all faculty members, and the institute
+for providing the required infrastructure and support. I also thank my family and
+friends for their encouragement and support during the completion of this project.
+
+% ------------------------- ABSTRACT -------------------------
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+
+This mini project presents a \textbf{movie recommendation model} implemented in
+Python using the \textbf{scikit-learn} library. The system uses the
+\texttt{movie\_dataset.csv} dataset from the GitHub repository
+\href{https://github.com/rashida048/Some-NLP-Projects}{Some-NLP-Projects}.
+
+The project follows a \textbf{content-based recommendation} approach. Important text
+features such as genres, keywords, cast, director, tagline, and overview are
+combined and transformed into numerical vectors using
+\textbf{TF-IDF (Term Frequency - Inverse Document Frequency)}. Similarity between
+movies is then computed using \textbf{cosine similarity}.
+
+Given an input movie title, the system returns top-N similar movies. The entire
+workflow is implemented in a Jupyter notebook for easy demonstration,
+experimentation, and analysis. The project demonstrates practical use of machine
+learning concepts, text preprocessing, feature engineering, and recommendation
+techniques in a real-world dataset.
+
+% ------------------------- CONTENTS -------------------------
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+
+% ------------------------- CHAPTER 1 -------------------------
+\chapter{Introduction}
+
+\section{Project Title}
+\textbf{Develop a Movie Recommendation Model Using Scikit-learn}
+
+\section{Introduction}
+Recommendation systems are widely used in digital platforms to help users discover
+relevant items from large collections. In the movie domain, recommending similar
+films improves user experience and reduces search effort.
+
+In this project, a movie recommendation model is developed using Python and
+scikit-learn. The model uses movie metadata and applies natural language feature
+engineering to identify similarity among movies. The implementation is completed in
+Jupyter notebook format and validated on a publicly available dataset.
+
+\section{Objectives of the Project}
+\begin{itemize}[leftmargin=1.2cm]
+\item To build a movie recommendation system using scikit-learn.
+\item To preprocess and combine multiple textual metadata fields.
+\item To apply TF-IDF vectorization for feature representation.
+\item To compute movie-to-movie similarity using cosine similarity.
+\item To return top-N recommendations for a given movie title.
+\end{itemize}
+
+\section{Scope}
+The current project focuses on a content-based recommender using one dataset and
+single-user query input. Future scope includes hybrid recommendation (content +
+collaborative filtering), user profiling, and web deployment.
+
+% ------------------------- CHAPTER 2 -------------------------
+\chapter{Literature Review}
+
+Recommendation systems are generally categorized into collaborative filtering,
+content-based filtering, and hybrid approaches.
+
+Collaborative filtering depends on user-item interaction data such as ratings.
+Although powerful, it often suffers from cold-start issues when new users or items
+have little history.
+
+Content-based recommendation uses item attributes and recommends items similar to
+those preferred by the user. For text-rich movie metadata, TF-IDF with cosine
+similarity is a widely accepted baseline due to simplicity, interpretability, and
+good practical performance.
+
+Based on these observations, this mini project adopts a content-based method using
+movie metadata and scikit-learn utilities.
+
+% ------------------------- CHAPTER 3 -------------------------
+\chapter{Software Requirement Specification}
+
+\section{Functional Requirements}
+\begin{itemize}[leftmargin=1.2cm]
+\item Load movie metadata from \texttt{data/movie\_dataset.csv}.
+\item Clean and preprocess text fields (lowercasing, symbol removal, spacing).
+\item Build a TF-IDF feature matrix from selected metadata columns.
+\item Accept movie title input and support exact/partial title match.
+\item Compute similarity and display top-N recommended movies.
+\item Provide notebook-based execution for demonstration and testing.
+\end{itemize}
+
+\section{Non-Functional Requirements}
+\begin{itemize}[leftmargin=1.2cm]
+\item Usability: Simple notebook flow with clear outputs.
+\item Performance: Fast recommendation on medium-size dataset.
+\item Maintainability: Modular functions for preprocessing and recommendation.
+\item Reliability: Error handling for missing files and unknown movie titles.
+\item Reproducibility: Same results for same input and dataset.
+\end{itemize}
+
+\section{Hardware Requirements}
+\begin{itemize}[leftmargin=1.2cm]
+\item Processor: Intel Core i3 or above
+\item RAM: 4 GB or above (8 GB recommended)
+\item Storage: 1 GB free disk space
+\end{itemize}
+
+\section{Software Requirements}
+\begin{itemize}[leftmargin=1.2cm]
+\item Operating System: Windows 10/11 or Linux
+\item Python: 3.10 or above
+\item Notebook Environment: Jupyter Notebook / VS Code Notebook
+\item Libraries: pandas, scikit-learn
+\item Optional IDE: VS Code
+\end{itemize}
+
+% ------------------------- CHAPTER 4 -------------------------
+\chapter{System Analysis and Design}
+
+\section{Existing System}
+Traditional movie browsing is keyword-based and often not personalized. Users may
+need to search multiple titles manually before finding relevant content.
+
+\section{Proposed System}
+The proposed model recommends movies similar to a selected title based on metadata.
+Key advantages are:
+\begin{itemize}[leftmargin=1.2cm]
+\item No dependency on user rating history
+\item Efficient similarity search using vector space representation
+\item Easy implementation and explainable recommendation logic
+\end{itemize}
+
+\section{Dataset Overview}
+Dataset file used:
+\begin{itemize}[leftmargin=1.2cm]
+\item \texttt{movie\_dataset.csv}
+\end{itemize}
+
+Important fields considered:
+\begin{itemize}[leftmargin=1.2cm]
+\item \texttt{title}
+\item \texttt{genres}
+\item \texttt{keywords}
+\item \texttt{tagline}
+\item \texttt{cast}
+\item \texttt{director}
+\item \texttt{overview}
+\end{itemize}
+
+\section{Recommendation Model}
+Text from selected columns is combined into one corpus per movie.
+TF-IDF vectors are generated using scikit-learn. Similarity is measured using
+cosine similarity.
+
+TF-IDF scoring formula:
+\[
+\mathrm{tfidf}(t,d) = \mathrm{tf}(t,d) \times \log\left(\frac{N}{\mathrm{df}(t)}\right)
+\]
+
+Cosine similarity formula:
+\[
+\mathrm{sim}(A,B) = \frac{A \cdot B}{\|A\|\|B\|}
+\]
+
+Movies with highest similarity scores are returned as recommendations.
+
+% ------------------------- CHAPTER 5 -------------------------
+\chapter{System Design and Implementation}
+
+\section{Implementation Workflow}
+The notebook implementation follows this sequence:
+\begin{itemize}[leftmargin=1.2cm]
+\item Import required Python libraries
+\item Load dataset from local path
+\item Preprocess and clean text features
+\item Generate TF-IDF feature matrix
+\item Define recommendation function
+\item Run sample and interactive recommendations
+\end{itemize}
+
+\section{Notebook and Project Files}
+\begin{itemize}[leftmargin=1.2cm]
+\item \texttt{movie\_recommendation\_project.ipynb} - Main implementation
+\item \texttt{data/movie\_dataset.csv} - Dataset
+\item \texttt{requirements.txt} - Python dependencies
+\end{itemize}
+
+\section{Algorithmic Highlights}
+\begin{itemize}[leftmargin=1.2cm]
+\item Combined multiple textual attributes for richer context
+\item Used bi-gram TF-IDF settings for better phrase representation
+\item Added partial title matching for user-friendly query support
+\item Returned ranked recommendations with similarity scores
+\end{itemize}
+
+\section{Sample Output}
+For input movie title \textbf{Avatar}, the model returns top similar movies such as:
+\textit{Aliens, Cargo, Star Trek Beyond, Guardians of the Galaxy, Alien}, etc.
+
+% ------------------------- CHAPTER 6 -------------------------
+\chapter{Testing}
+
+\section{Testing Techniques Used}
+\begin{itemize}[leftmargin=1.2cm]
+\item Functional Testing: Validation of each notebook step
+\item Data Validation Testing: File existence and column checks
+\item Result Verification: Relevance of recommended movie list
+\item Error Handling Testing: Unknown title and missing file scenarios
+\end{itemize}
+
+\section{Sample Test Cases}
+\begin{table}[H]
+\centering
+\begin{tabular}{p{1.7cm}p{3.6cm}p{3.2cm}p{4.0cm}p{1.8cm}}
+\toprule
+\textbf{TC ID} & \textbf{Function} & \textbf{Input} & \textbf{Expected Output} & \textbf{Status} \\
+\midrule
+TC01 & Dataset Load & Valid CSV file path & DataFrame loaded successfully & Pass \\
+TC02 & Preprocessing & Text columns with nulls & Clean combined corpus generated & Pass \\
+TC03 & TF-IDF Build & Clean corpus & TF-IDF matrix created & Pass \\
+TC04 & Exact Search & Avatar & Top-N recommendations displayed & Pass \\
+TC05 & Partial Search & Batman & Closest title selected, results shown & Pass \\
+TC06 & Invalid Movie & RandomXYZ123 & Error message: Movie not found & Pass \\
+TC07 & Missing Dataset & Deleted CSV file & FileNotFoundError displayed & Pass \\
+TC08 & Output Quality & Top-N = 10 & Ranked list with similarity values & Pass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ------------------------- CHAPTER 7 -------------------------
+\chapter{Conclusion}
+
+The mini project successfully implements a movie recommendation model using
+scikit-learn and real-world movie metadata. The model applies content-based
+filtering through TF-IDF feature extraction and cosine similarity scoring.
+
+The developed notebook is simple, modular, and easy to demonstrate. It satisfies
+the project objective of building a recommender in Python while also showing
+practical understanding of text preprocessing, vectorization, and ranking.
+
+This project can be extended with hybrid recommendation methods, user feedback,
+web-based interfaces, and formal evaluation metrics such as Precision@K and
+Recall@K.
+
+\end{document}
